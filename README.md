@@ -37,10 +37,10 @@ The STACKIT Landing Zone Accelerator provides a comprehensive Terraform-based fr
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/stackit-landing-zone-accelerator.git
+git clone https://github.com/stackitcloud/stackit-landing-zone.git
 
 # Navigate to a template
-cd templates/01-small-scale
+cd examples/01-small-scale
 
 # Fill out the values
 
