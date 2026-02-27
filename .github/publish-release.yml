@@ -1,0 +1,114 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag for the release (e.g., 2026-02-16)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+env:
+  TOFU_VERSION: "1.11.4"
+
+jobs:
+  validate-modules:
+    name: Format and Validate Modules
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+
+      - name: Initialize and validate all modules
+        run: |
+          echo "Initializing and validating all Terraform modules..."
+          failed_modules=""
+          
+          for module in modules/*/; do
+            echo "============================================"
+            echo "Processing: $module"
+            echo "============================================"
+            
+            cd "$module"
+            
+            echo "Running tofu init..."
+            if ! tofu init -backend=false; then
+              echo "::error::tofu init failed for $module"
+              failed_modules="$failed_modules $module"
+              cd - > /dev/null
+              continue
+            fi
+            
+            echo "Running tofu validate..."
+            if ! tofu validate; then
+              echo "::error::tofu validate failed for $module"
+              failed_modules="$failed_modules $module"
+            else
+              echo "✓ $module validated successfully"
+            fi
+            
+            cd - > /dev/null
+          done
+          
+          if [[ -n "$failed_modules" ]]; then
+            echo "::error::The following modules failed validation:$failed_modules"
+            exit 1
+          fi
+          
+          echo "All modules validated successfully!"
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${{ github.ref_name }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+
+          gh release create "$VERSION" \
+            --title "$VERSION" \
+            --generate-notes \
+            $PRERELEASE_FLAG
+
+      - name: Download release artifacts for attestation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          mkdir -p release-artifacts
+          gh release download "$VERSION" --archive=tar.gz --dir release-artifacts
+          gh release download "$VERSION" --archive=zip --dir release-artifacts
+          ls -la release-artifacts/
+
+      - name: Generate provenance attestation
+        id: attestation
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
+        with:
+          subject-path: release-artifacts/*
+
+      - name: Upload attestation to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          gh release upload "$VERSION" "${{ steps.attestation.outputs.bundle-path }}" --clobber

@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "terraform"
+    directories:
+      - "/modules/*"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+    groups:
+      terraform-providers:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
