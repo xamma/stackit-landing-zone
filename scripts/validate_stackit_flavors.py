@@ -9,14 +9,24 @@ import sys
 import time
 from pathlib import Path
 from typing import Iterable
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 from urllib.error import URLError, HTTPError
 from urllib.request import Request, urlopen
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_API_URL = "https://pim.api.stackit.cloud/v1/skus"
+DEFAULT_API_URL = "https://pim.api.stackit.cloud/v2/skus"
 API_TIMEOUT_SECONDS = 45
 API_RETRIES = 3
+DEFAULT_PAGE_SIZE = 100
+
+
+def normalize_text(value: object) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value).strip().lower()
 
 
 def fetch_json(url: str) -> dict:
@@ -39,63 +49,112 @@ def fetch_json(url: str) -> dict:
     raise RuntimeError(f"Failed to fetch STACKIT SKUs from {url}: {last_error}")
 
 
-def extract_live_flavors(payload: dict) -> tuple[set[str], set[str]]:
+def with_query_params(url: str, updates: dict[str, str]) -> str:
+    parsed = urlparse(url)
+    params = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    params.update(updates)
+    new_query = urlencode(params, doseq=True)
+    return urlunparse((parsed.scheme, parsed.netloc, parsed.path, parsed.params, new_query, parsed.fragment))
+
+
+def fetch_all_v2_skus(url: str) -> list[dict]:
+    items: list[dict] = []
+    cursor: str | None = None
+
+    while True:
+        query_updates = {"pageSize": str(DEFAULT_PAGE_SIZE)}
+        if "language" not in dict(parse_qsl(urlparse(url).query, keep_blank_values=True)):
+            query_updates["language"] = "en"
+        if cursor:
+            query_updates["cursor"] = cursor
+
+        page_url = with_query_params(url, query_updates)
+        payload = fetch_json(page_url)
+        data = payload.get("data")
+        if not isinstance(data, list):
+            raise RuntimeError("Unsupported v2 SKU response format: expected 'data' list.")
+
+        items.extend(item for item in data if isinstance(item, dict))
+        meta = payload.get("meta") if isinstance(payload.get("meta"), dict) else {}
+        next_cursor = meta.get("nextCursor") if isinstance(meta, dict) else None
+        cursor = str(next_cursor) if next_cursor else None
+        if not cursor:
+            break
+
+    return items
+
+
+def fetch_flavor_skus(url: str) -> list[dict]:
+    params = dict(parse_qsl(urlparse(url).query, keep_blank_values=True))
+    product_param = params.get("productName")
+
+    # If productName is already pinned in the URL, respect it.
+    if product_param:
+        return fetch_all_v2_skus(url)
+
+    # Flavor validation only needs Server and Git SKUs.
+    server_url = with_query_params(url, {"productName": "Server"})
+    git_url = with_query_params(url, {"productName": "Git"})
+
+    by_id: dict[str, dict] = {}
+    for item in fetch_all_v2_skus(server_url) + fetch_all_v2_skus(git_url):
+        item_id = str(item.get("id") or "")
+        if item_id:
+            by_id[item_id] = item
+        else:
+            # Fallback for unexpected entries without an id.
+            by_id[str(len(by_id))] = item
+
+    return list(by_id.values())
+
+
+def is_deprecated(item: dict) -> bool:
+    deprecated_markers = {"yes", "true", "1", "deprecated"}
+
+    deprecated = normalize_text(item.get("deprecated"))
+    if deprecated in deprecated_markers:
+        return True
+
+    # Some payloads use the misspelled field, keep compatibility.
+    depreciated = normalize_text(item.get("depreciated"))
+    if depreciated in deprecated_markers:
+        return True
+
+    status = normalize_text(item.get("status"))
+    if "deprecat" in status:
+        return True
+
+    return False
+
+
+def extract_live_flavors(items: list[dict]) -> tuple[set[str], set[str]]:
     server_flavors: set[str] = set()
     git_flavors: set[str] = set()
 
-    if "services" in payload:
-        items = payload.get("services", [])
-        for item in items:
-            if not isinstance(item, dict):
-                continue
+    for item in items:
+        if is_deprecated(item):
+            continue
 
-            product = str(item.get("product") or "")
-            deprecated = str(item.get("deprecated") or "")
-            if deprecated.lower() == "yes":
-                continue
+        product = str(item.get("productName") or item.get("product") or "")
+        attributes = item.get("productSpecificAttributes")
+        if not isinstance(attributes, dict):
+            attributes = item.get("attributes") if isinstance(item.get("attributes"), dict) else {}
 
-            attributes = item.get("attributes")
-            if not isinstance(attributes, dict):
-                attributes = {}
+        if product == "Server":
+            flavor = attributes.get("flavor")
+            if isinstance(flavor, str) and flavor.strip():
+                server_flavors.add(flavor.strip())
 
-            if product == "Server":
-                flavor = attributes.get("flavor")
-                if isinstance(flavor, str) and flavor.strip():
-                    server_flavors.add(flavor.strip())
-
-            if product == "Git":
+        if product == "Git":
+            flavor = attributes.get("flavor")
+            if isinstance(flavor, str) and re.match(r"^git-\d+$", flavor.strip()):
+                git_flavors.add(flavor.strip())
+            else:
+                # Keep compatibility with name-based extraction.
                 name = str(item.get("name") or "")
                 match = re.match(r"^Git-(\d+)-", name)
                 if match:
                     git_flavors.add(f"git-{match.group(1)}")
-
-    elif "data" in payload:
-        items = payload.get("data", [])
-        for item in items:
-            if not isinstance(item, dict):
-                continue
-
-            product = str(item.get("productName") or "")
-            deprecated = str(item.get("deprecated") or "")
-            if deprecated.lower() == "yes":
-                continue
-
-            attributes = item.get("productSpecificAttributes")
-            if not isinstance(attributes, dict):
-                attributes = {}
-
-            if product == "Server":
-                flavor = attributes.get("flavor")
-                if isinstance(flavor, str) and flavor.strip():
-                    server_flavors.add(flavor.strip())
-
-            if product == "Git":
-                name = str(item.get("name") or "")
-                match = re.match(r"^Git-(\d+)-", name)
-                if match:
-                    git_flavors.add(f"git-{match.group(1)}")
-    else:
-        raise RuntimeError("Unsupported SKU API response format: expected 'services' or 'data'.")
 
     if not server_flavors:
         raise RuntimeError("No live server flavors found in SKU API response.")
@@ -172,8 +231,8 @@ def main() -> int:
     api_url = os.environ.get("STACKIT_PIM_SKUS_URL", DEFAULT_API_URL)
 
     try:
-        payload = fetch_json(api_url)
-        allowed_server, allowed_git = extract_live_flavors(payload)
+        skus = fetch_flavor_skus(api_url)
+        allowed_server, allowed_git = extract_live_flavors(skus)
         used_server, used_git = collect_used_flavors(REPO_ROOT)
 
         errors = []

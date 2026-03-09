@@ -85,7 +85,7 @@ For live validation against current STACKIT SKUs, CI also runs:
 python3 scripts/validate_stackit_flavors.py
 ```
 
-By default it uses `https://pim.api.stackit.cloud/v1/skus` and fails if a configured flavor is not currently available.
+By default it uses `https://pim.api.stackit.cloud/v2/skus` and fails if a configured flavor is not currently available.
 
 ## 🤝 Contributing
 
