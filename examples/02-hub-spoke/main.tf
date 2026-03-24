@@ -10,6 +10,29 @@ module "governance" {
   labels                = var.labels
   organization_owners   = var.organization_owners
   organization_auditors = var.organization_auditors
+
+  rm_folders = {
+    platform = {
+      name          = "Platform"
+      owner_emails  = []
+      reader_emails = []
+    }
+    landing_zones_corporate = {
+      name          = "Landing Zones - Corporate"
+      owner_emails  = []
+      reader_emails = []
+    }
+    landing_zones_public = {
+      name          = "Landing Zones - Public"
+      owner_emails  = []
+      reader_emails = []
+    }
+    sandboxes = {
+      name          = "Sandboxes"
+      owner_emails  = []
+      reader_emails = []
+    }
+  }
 }
 
 ################
@@ -21,7 +44,7 @@ module "management" {
 
   owner_email         = var.owner_email
   naming_pattern      = "${var.company_code}-pltfm-mgmt-prod"
-  parent_container_id = module.governance.folder_container_ids.platform
+  parent_container_id = module.governance.folder_container_ids["platform"]
   organization_id     = var.organization_id
   labels              = var.labels
 }
@@ -47,7 +70,7 @@ module "connectivity_regional" {
 
   owner_email         = var.owner_email
   naming_pattern      = "${var.company_code}-pltfm-hub-prod"
-  parent_container_id = module.governance.folder_container_ids.platform
+  parent_container_id = module.governance.folder_container_ids["platform"]
   organization_id     = var.organization_id
   network_area_id     = module.connectivity_global.network_area_ids[var.connectivity_regional_network_area]
   labels              = var.labels
@@ -69,7 +92,7 @@ module "devops" {
   owner_email         = var.owner_email
   naming_pattern      = "${var.company_code}-pltfm-devops-prod"
   company_name        = var.company_name
-  parent_container_id = module.governance.folder_container_ids.platform
+  parent_container_id = module.governance.folder_container_ids["platform"]
   labels              = var.labels
 }
 
@@ -81,7 +104,7 @@ module "sandboxes" {
   source = "../../modules/sandboxes"
 
   naming_prefix       = "${var.company_code}-sbx"
-  parent_container_id = module.governance.folder_container_ids.sandbox
+  parent_container_id = module.governance.folder_container_ids["sandboxes"]
   sandboxes           = var.sandboxes
 }
 
@@ -93,7 +116,7 @@ module "landing_zone" {
   source   = "../../modules/landing-zone"
   for_each = var.landing_zones
 
-  parent_container_id   = each.value.corporate ? module.governance.folder_container_ids.landing_zones_corporate : module.governance.folder_container_ids.landing_zones_public
+  parent_container_id   = each.value.corporate ? module.governance.folder_container_ids["landing_zones_corporate"] : module.governance.folder_container_ids["landing_zones_public"]
   naming_pattern        = "${var.company_code}-lz-${each.value.project_code}-${each.value.env}"
   network_area_id       = each.value.corporate ? module.connectivity_global.network_area_ids[var.connectivity_regional_network_area] : null
   owner_email           = each.value.owner_email

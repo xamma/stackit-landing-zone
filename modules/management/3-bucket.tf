@@ -26,11 +26,6 @@ resource "stackit_objectstorage_credentials_group" "this" {
   ]
 }
 
-moved {
-  from = stackit_objectstorage_credentials_group.main
-  to   = stackit_objectstorage_credentials_group.this
-}
-
 resource "stackit_objectstorage_credential" "this" {
   project_id           = stackit_resourcemanager_project.this.project_id
   credentials_group_id = stackit_objectstorage_credentials_group.this.credentials_group_id
