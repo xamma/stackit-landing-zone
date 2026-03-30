@@ -18,26 +18,9 @@ variable "network_areas" {
     max_prefix_length      = optional(number, 28)
     min_prefix_length      = optional(number, 24)
     default_prefix_length  = optional(number, 28)
-    default_nameservers    = optional(list(string), null)
+    default_nameservers    = optional(list(string), ["1.0.0.1", "1.1.1.1"])
   }))
   description = "List of network areas to create, each with its own name, ranges, and configuration."
-}
-
-variable "network_area_routes" {
-  type = list(object({
-    name              = string
-    network_area_name = string
-    destination = object({
-      type  = string
-      value = string
-    })
-    next_hop = object({
-      type  = string
-      value = optional(string)
-    })
-  }))
-  description = "List of static routes to create within network areas. Each route references a network area by name."
-  default     = []
 }
 
 variable "organization_id" {

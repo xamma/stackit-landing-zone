@@ -14,7 +14,7 @@ resource "stackit_network_area" "this" {
 
   organization_id = var.organization_id
   name            = each.key
-  labels          = length(local.project_labels) > 0 ? local.project_labels : null
+  labels          = merge(local.project_labels, { "preview/routingtables" = "true" })
 }
 
 resource "stackit_network_area_region" "this" {
@@ -31,18 +31,4 @@ resource "stackit_network_area_region" "this" {
     default_prefix_length = each.value.default_prefix_length
     default_nameservers   = each.value.default_nameservers
   }
-}
-
-############################
-## NETWORK AREA - ROUTING ##
-############################
-
-resource "stackit_network_area_route" "this" {
-  for_each = { for r in var.network_area_routes : r.name => r }
-
-  organization_id = var.organization_id
-  network_area_id = stackit_network_area.this[each.value.network_area_name].network_area_id
-
-  destination = each.value.destination
-  next_hop    = each.value.next_hop
 }

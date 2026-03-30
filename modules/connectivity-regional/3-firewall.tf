@@ -56,7 +56,7 @@ resource "stackit_server" "pfsense_Server" {
   }
   availability_zone = var.firewall_zone
   machine_type      = var.firewall_flavor
-  
+
   network_interfaces = [
     stackit_network_interface.wan.network_interface_id, # vtnet0 = WAN
     stackit_network_interface.lan.network_interface_id  # vtnet1 = LAN
