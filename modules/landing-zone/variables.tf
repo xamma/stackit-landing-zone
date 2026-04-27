@@ -68,6 +68,6 @@ variable "firewall_next_hop_ip" {
 
 variable "ipv4_nameservers" {
   type        = list(string)
-  description = "List of IPv4 nameservers for the network. Required if network_area_id is null."
+  description = "List of IPv4 nameservers for the network."
   default     = null
 }
