@@ -33,11 +33,6 @@ platform_admins = [
   "platform-admin@example.com"
 ]
 
-# Users with admin access to the Landing Zones folders
-landing_zone_admins = [
-  "lz-admin@example.com"
-]
-
 ###########################
 ## CONNECTIVITY - GLOBAL ##
 ###########################
