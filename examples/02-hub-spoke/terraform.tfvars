@@ -3,7 +3,7 @@
 ######################
 
 # Email of the technical owner registered in STACKIT
-owner_email = "matthias.hauber@prodyna.com"
+owner_email = "example@company.com"
 
 # Company name used for folder naming in the resource manager
 company_name = "Example Corp"
@@ -16,11 +16,10 @@ organization_id = "b76b54b6-f55d-41a1-b3c3-30252f8b97cc"
 
 region = "eu01"
 
-# Labels applied to all resources for cost tracking / filtering
+# Labels applied to all resources, max. 64 characters
 labels = {
   managed_by  = "opentofu"
   environment = "production"
-  "preview/routingtables" = "true"
 }
 
 # Users with full organization-level owner permissions
@@ -39,8 +38,8 @@ labels = {
 
 # DNS zones managed in the connectivity project
 dns_zones = {
-  "prodyna" = {
-    dns_name = "prodyna.stackit.run"
+  "example-corp" = {
+    dns_name = "example-corp.stackit.run"
   }
 }
 
@@ -57,10 +56,8 @@ network_area = {
 firewall = {
   zone       = "eu01-m"
   flavor     = "c1.2"
-  lan_ip     = "10.0.0.220"
-  lan_prefix = "10.0.0.128/25"
-  wan_ip     = "10.0.1.1"
-  wan_prefix = "10.0.1.0/25"
+  lan_network_range = "10.0.0.0/28"
+  wan_network_range = "10.0.0.16/28"
 }
 
 ###############

@@ -4,7 +4,7 @@
 
 locals {
   project_labels = merge(
-    { "networkArea" = stackit_network_area.this.id },
+    { "networkArea" = stackit_network_area.this.network_area_id },
     var.labels
   )
   labels = length(local.project_labels) > 0 ? local.project_labels : null # provider bug: empty map becomes null after apply

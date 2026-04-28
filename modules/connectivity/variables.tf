@@ -16,12 +16,12 @@ variable "firewall" {
   type = object({
     zone       = string
     flavor     = string
-    lan_ip     = string
-    lan_prefix = string
-    wan_ip     = string
-    wan_prefix = string
+    lan_network_range = string
+    wan_network_range = string
+    lan_ip     = optional(string, null)
+    wan_ip     = optional(string, null)
   })
-  description = "pfSense firewall configuration. Set to null to skip firewall deployment (network area and routing are still created). lan_prefix and wan_prefix must be CIDRs within the network area range that contain the respective IPs."
+  description = "pfSense firewall configuration. Set to null to skip firewall deployment (network area and routing are still created). lan_network_range and wan_network_range must be CIDRs within the network area range. lan_ip and wan_ip are optional; when omitted, the 5th address of the respective prefix is used (STACKIT reserves the first usable address as the gateway)."
   default     = null
 
   validation {

@@ -2,7 +2,8 @@
 ## ROUTING ##
 #############
 resource "stackit_routing_table" "this" {
-  count           = var.corporate ? 1 : 0
+  count = var.corporate && var.firewall_next_hop_ip != null ? 1 : 0
+
   organization_id = var.organization_id
   network_area_id = var.network_area_id
   name            = var.naming_pattern
@@ -12,11 +13,11 @@ resource "stackit_routing_table" "this" {
 }
 
 resource "stackit_routing_table_route" "this" {
-  count            = var.corporate ? 1 : 0
-  routing_table_id = stackit_routing_table.this[0].routing_table_id
+  count = var.corporate && var.firewall_next_hop_ip != null ? 1 : 0
 
-  organization_id = var.organization_id
-  network_area_id = var.network_area_id
+  routing_table_id = stackit_routing_table.this[0].routing_table_id
+  organization_id  = var.organization_id
+  network_area_id  = var.network_area_id
 
   destination = {
     type  = "cidrv4"
@@ -35,14 +36,14 @@ resource "stackit_routing_table_route" "this" {
 ## NETWORK ##
 #############
 resource "stackit_network" "this" {
-  count      = var.corporate ? 1 : 0
-  project_id = stackit_resourcemanager_project.this.project_id
+  count = var.corporate ? 1 : 0
 
   name               = "${var.naming_pattern}-routed"
+  project_id         = stackit_resourcemanager_project.this.project_id
   ipv4_prefix_length = var.network_prefix_length
   routed             = true
   ipv4_nameservers   = var.ipv4_nameservers
-  routing_table_id   = stackit_routing_table.this[0].routing_table_id
+  routing_table_id   = var.firewall_next_hop_ip != null ? stackit_routing_table.this[0].routing_table_id : null
 
   labels = local.labels
 }

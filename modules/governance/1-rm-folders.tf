@@ -32,7 +32,11 @@ resource "stackit_resourcemanager_folder" "this" {
   name                = each.value.name
   parent_container_id = var.organization_id
   owner_email         = var.owner_email
-  labels              = length(var.labels) > 0 ? var.labels : null # provider bug: empty map becomes null after apply
+  # labels              = length(var.labels) > 0 ? var.labels : null # provider bug: empty map becomes null after apply
+
+  lifecycle {
+    ignore_changes = [labels]
+  }
 }
 
 ################################

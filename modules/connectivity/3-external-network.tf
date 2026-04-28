@@ -41,7 +41,7 @@ resource "stackit_network" "wan" {
 
   project_id       = stackit_resourcemanager_project.this.project_id
   name             = "wan_network"
-  ipv4_prefix      = var.firewall.wan_prefix
+  ipv4_prefix      = var.firewall.wan_network_range
   routing_table_id = stackit_routing_table.wan.routing_table_id
   routed           = true
 }
@@ -52,7 +52,7 @@ resource "stackit_network_interface" "wan" {
   name       = "vtnet0_wan"
   project_id = stackit_resourcemanager_project.this.project_id
   network_id = stackit_network.wan[0].network_id
-  ipv4       = var.firewall.wan_ip
+  ipv4       = coalesce(var.firewall.wan_ip, cidrhost(var.firewall.wan_network_range, 4))
   security   = false
 }
 

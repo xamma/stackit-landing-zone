@@ -85,12 +85,12 @@ variable "firewall" {
   type = object({
     zone       = string
     flavor     = string
-    lan_ip     = string
-    lan_prefix = string
-    wan_ip     = string
-    wan_prefix = string
+    lan_network_range = string
+    wan_network_range = string
+    lan_ip     = optional(string, null)
+    wan_ip     = optional(string, null)
   })
-  description = "pfSense firewall configuration. Set to null to skip firewall deployment."
+  description = "pfSense firewall configuration. Set to null to skip firewall deployment. lan_ip/wan_ip default to the 5th address of the respective prefix."
   default     = null
 }
 

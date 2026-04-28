@@ -56,14 +56,14 @@ module "management" {
 module "connectivity" {
   source = "../../modules/connectivity"
 
-  owner_email            = var.owner_email
-  naming_pattern         = "${var.company_code}-pltfm-hub-prod"
-  parent_container_id    = module.governance.folder_container_ids["platform"]
-  organization_id        = var.organization_id
-  labels                 = var.labels
-  dns_zones              = var.dns_zones
-  network_area           = var.network_area
-  firewall               = var.firewall
+  owner_email         = var.owner_email
+  naming_pattern      = "${var.company_code}-pltfm-hub-prod"
+  parent_container_id = module.governance.folder_container_ids["platform"]
+  organization_id     = var.organization_id
+  labels              = var.labels
+  dns_zones           = var.dns_zones
+  network_area        = var.network_area
+  firewall            = var.firewall
 }
 
 ############
@@ -102,16 +102,16 @@ module "landing_zone" {
   source   = "../../modules/landing-zone"
   for_each = var.landing_zones
 
-  organization_id        = var.organization_id 
-  parent_container_id    = each.value.corporate ? module.governance.folder_container_ids["landing_zones_corporate"] : module.governance.folder_container_ids["landing_zones_public"]
-  naming_pattern         = "${var.company_code}-lz-${each.value.project_code}-${each.value.env}"
-  dns_zone_name          = "${each.value.project_code}-${each.value.env}-${var.region}-${split(".", values(module.connectivity.dns_zone_dns_names)[0])[0]}.stackit.run"
-  network_area_id        = each.value.corporate ? module.connectivity.network_area_id : null
-  corporate              = each.value.corporate
-  owner_email            = each.value.owner_email
-  labels                 = var.labels
-  role_assignments       = each.value.role_assignments
-  network_prefix_length  = each.value.network_prefix_length
-  custom_roles           = each.value.custom_roles
-  firewall_next_hop_ip   = module.connectivity.firewall_next_hop_ip
+  organization_id       = var.organization_id
+  parent_container_id   = each.value.corporate ? module.governance.folder_container_ids["landing_zones_corporate"] : module.governance.folder_container_ids["landing_zones_public"]
+  naming_pattern        = "${var.company_code}-lz-${each.value.project_code}-${each.value.env}"
+  dns_zone_name         = "${each.value.project_code}-${each.value.env}-${var.region}-${split(".", values(module.connectivity.dns_zone_dns_names)[0])[0]}.stackit.run"
+  network_area_id       = each.value.corporate ? module.connectivity.network_area_id : null
+  corporate             = each.value.corporate
+  owner_email           = each.value.owner_email
+  labels                = var.labels
+  role_assignments      = each.value.role_assignments
+  network_prefix_length = each.value.network_prefix_length
+  custom_roles          = each.value.custom_roles
+  firewall_next_hop_ip  = var.firewall != null ? module.connectivity.firewall_next_hop_ip : null # if firewall is enabled, pass the next hop IP to the landing zones for route configuration
 }

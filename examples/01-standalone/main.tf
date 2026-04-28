@@ -67,7 +67,7 @@ module "sandboxes" {
   source = "../../modules/sandboxes"
   count  = length(var.sandboxes) > 0 ? 1 : 0
 
-  naming_prefix      = "${var.company_code}-sbx"
+  naming_prefix       = "${var.company_code}-sbx"
   parent_container_id = module.governance.folder_container_ids["sandboxes"]
   sandboxes           = var.sandboxes
 }
