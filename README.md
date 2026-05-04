@@ -40,12 +40,12 @@ git clone https://github.com/stackitcloud/stackit-landing-zone.git
 cd stackit-landing-zone/src
 
 # Copy and edit the tfvars for your desired flavour (see Deployment Flavours below)
-cp config/standalone.tfvars terraform.tfvars
+cp config/standalone.tfvars terraform.auto.tfvars
 
 # Initialize and deploy
 tofu init
-tofu plan -var-file=terraform.tfvars
-tofu apply -var-file=terraform.tfvars
+tofu plan
+tofu apply
 ```
 
 📖 See the [Getting Started Guide](docs/getting-started.md) for detailed instructions.
