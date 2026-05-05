@@ -1,4 +1,11 @@
-# 🚀 STACKIT Landing Zone Accelerator
+<div align="center">
+<br>
+<img src=".github/images/stackit-logo.svg" alt="STACKIT logo" width="50%"/>
+<br>
+<br>
+</div>
+
+# Landing Zone Accelerator
 
 **Accelerate your STACKIT cloud adoption with production-ready, modular landing zones.**
 
@@ -9,48 +16,15 @@
 
 ---
 
-## ✨ Overview
+## Overview
 
 The STACKIT Landing Zone Accelerator provides a comprehensive Terraform-based framework for deploying secure, scalable, and well-architected cloud environments on STACKIT. Built with enterprise best practices, it enables teams to quickly establish governance, networking, and security foundations.
 
-## 🎯 Key Features
+## 📚 Documentation
 
-- **🏗️ Modular Architecture** — Compose your infrastructure using reusable, tested Terraform modules
-- **🔐 Security First** — Pre-configured RBAC, secrets management, and network segmentation
-- **📐 Three Deployment Flavours** — Start standalone and evolve to hub-spoke with or without a firewall
-- **🌐 Multi-Environment** — Seamlessly manage production and non-production workloads
-- **⚡ Quick Start** — Get up and running in minutes with sensible defaults
+- [Getting Started](docs/getting-started.md)
 
-## 📦 Modules
-
-| Module | Description |
-|--------|-------------|
-| `connectivity` | Connectivity hub project with network area, WAN/LAN networks, optional pfSense firewall, and DNS zones |
-| `devops` | DevOps project with RBAC and managed Git instance |
-| `governance` | Resource Manager folder hierarchy, custom roles, and organization-level role assignments |
-| `landing-zone` | Landing zone project with RBAC, networking, Secrets Manager, Object Storage, and service accounts |
-| `management` | Management project with Secrets Manager, Object Storage, service accounts, and observability |
-| `sandboxes` | Sandbox projects with RBAC role assignments for experimentation workloads |
-
-## 🚀 Getting Started
-
-```bash
-# Clone the repository
-git clone https://github.com/stackitcloud/stackit-landing-zone.git
-cd stackit-landing-zone/src
-
-# Copy and edit the tfvars for your desired flavour (see Deployment Flavours below)
-cp config/standalone.tfvars terraform.auto.tfvars
-
-# Initialize and deploy
-tofu init
-tofu plan
-tofu apply
-```
-
-📖 See the [Getting Started Guide](docs/getting-started.md) for detailed instructions.
-
-## 🗂️ Deployment Flavours
+## Deployment Flavours
 
 Three ready-to-use configurations are provided in `src/config/`:
 
@@ -59,21 +33,6 @@ Three ready-to-use configurations are provided in `src/config/`:
 | **Standalone** | `standalone.tfvars` | Governance, management, devops, and public landing zones only. No network area or firewall. |
 | **Hub-Spoke** | `hub-and-spoke.tfvars` | Adds a connectivity hub with a network area and DNS zones. Corporate landing zones connect via the network area. |
 | **Hub-Spoke + Firewall** | `hub-and-spoke-firewall.tfvars` | Full hub-spoke topology with a pfSense firewall appliance on the WAN/LAN boundary. |
-
-## 🧪 Testing
-
-Tests for all three flavours are located in `src/tests/` and use the native OpenTofu test framework:
-
-```bash
-cd src
-tofu test
-```
-
-| Test file | Flavour tested |
-|-----------|---------------|
-| `standalone.tftest.hcl` | Standalone — no connectivity module |
-| `hub_spoke.tftest.hcl` | Hub-spoke without and with firewall (two runs) |
-| `hub_spoke_firewall.tftest.hcl` | Hub-spoke with firewall |
 
 ## 📚 Documentation
 
