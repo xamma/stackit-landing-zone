@@ -18,38 +18,6 @@ The STACKIT Landing Zone Accelerator provides a comprehensive Terraform-based fr
 
 - [Getting Started](docs/getting-started.md)
 
-## Deployment Flavours
-
-Three ready-to-use configurations are provided in `src/config/`:
-
-| Flavour | Config file | Description |
-|---------|-------------|-------------|
-| **Standalone** | `standalone.tfvars` | Governance, management, devops, and public landing zones only. No network area or firewall. |
-| **Hub-Spoke** | `hub-and-spoke.tfvars` | Adds a connectivity hub with a network area and DNS zones. Corporate landing zones connect via the network area. |
-| **Hub-Spoke + Firewall** | `hub-and-spoke-firewall.tfvars` | Full hub-spoke topology with a pfSense firewall appliance on the WAN/LAN boundary. |
-
-## 📚 Documentation
-
-- [Getting Started](docs/getting-started.md)
-- [Deployment Guide](docs/deployment-guide.md)
-
-## 🔍 Linting (TFLint)
-
-Run locally:
-
-```bash
-tflint --init
-tflint --recursive
-```
-
-Variable validations enforce flavor naming patterns for `firewall.flavor` (connectivity module) and `git_flavor` (devops module). Use `stackit server machine-type list` and the STACKIT Git API docs to verify currently available flavors.
-
-For live validation against current STACKIT SKUs:
-
-```bash
-python3 scripts/validate_stackit_flavors.py
-```
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
