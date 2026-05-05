@@ -16,9 +16,9 @@
 
 ---
 
-## Overview
-
 The STACKIT Landing Zone Accelerator provides a comprehensive Terraform-based framework for deploying secure, scalable, and well-architected cloud environments on STACKIT. Built with enterprise best practices, it enables teams to quickly establish governance, networking, and security foundations.
+
+---
 
 ## 📚 Documentation
 
