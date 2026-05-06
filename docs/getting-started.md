@@ -21,6 +21,9 @@ Three ready-to-use configurations are provided in `src/config/`:
 
 Choose the flavour that matches your requirements and adjust the corresponding `.tfvars` file before deployment (step 7). At a minimum, update `owner_email`, `organization_id`, `company_name`, and `company_code`.
 
+> [!NOTE]
+> This single-root-module approach works well for smaller environments. At larger scale — typically beyond 10 landing zones — you may encounter STACKIT API rate limits during applies and slower plan/refresh cycles due to a growing state file. Tools like [Terragrunt](https://terragrunt.gruntwork.io/) can help by splitting landing zones into isolated state files and orchestrating root module calls with proper concurrency controls. If you are planning a larger enterprise deployment, reach out to [STACKIT](https://stackit.de) or a partner offering a verified landing zone solution via the [STACKIT Marketplace](https://marketplace.stackit.cloud).
+
 ---
 
 ## Step-by-Step Deployment
@@ -77,10 +80,13 @@ Create a service account key and configure it for the STACKIT Terraform provider
 
 ```bash
 mkdir -p ~/.stackit
-stackit service-account key create --email bootstrap-sa-ap82bsi8@sa.stackit.cloud --project-id <PROJECT_ID> -y --verbosity error > ~/.stackit/credentials.json
+stackit service-account key create --email <SERVICE_ACCOUNT_EMAIL> --project-id <PROJECT_ID> -y --verbosity error > ~/.stackit/credentials.json
 
 export STACKIT_SERVICE_ACCOUNT_KEY_PATH=/home/<USER>/.stackit/credentials.json
 ```
+
+> [!IMPORTANT]
+> `STACKIT_SERVICE_ACCOUNT_KEY_PATH` needs to be persisted across terminal sessions.
 
 > [!NOTE]
 > `~` does not work for referencing the home folder. If using mise, you can omit the `STACKIT_SERVICE_ACCOUNT_KEY_PATH` export.
@@ -171,15 +177,10 @@ Confirm the migration when prompted.
 
 Replace the bootstrap credentials with the service account created by the management module.
 
-In the STACKIT Portal, navigate to the management project → Secrets Manager → Secrets. Open the secret prefixed with `service_account_key_` and copy its value into `~/.stackit/credentials.json`:
+In the STACKIT Portal, navigate to the management project → Secrets Manager → Secrets. Open the secret prefixed with `service_account_key_`, copy its value and save it to `/home/<USER>/.stackit/credentials.json`, overwriting the bootstrap credentials.
 
-```bash
-cat > ~/.stackit/credentials.json << 'EOF'
-<PASTE_SECRET_VALUE_HERE>
-EOF
-```
-
-The `STACKIT_SERVICE_ACCOUNT_KEY_PATH` environment variable already points to this file from step 6, so no further changes are needed.
+> [!NOTE]
+> Use the absolute path — `~` does not work here.
 
 ### 13. Verify the migration
 
