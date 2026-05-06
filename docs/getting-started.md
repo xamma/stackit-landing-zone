@@ -2,6 +2,9 @@
 
 This guide walks you through deploying the STACKIT Landing Zone from scratch.
 
+> [!NOTE]
+> Resource Manager folders can only be deleted 7 days after the last project within them has been removed. As a result, applying and destroying everything in a single run is not possible.
+
 ## Prerequisites
 
 - A **STACKIT organization** with your user account registered
@@ -204,7 +207,7 @@ The output should show `No changes. Your infrastructure matches the configuratio
 The temporary bootstrap project with the service account is no longer needed:
 
 ```bash
-stackit project delete <BOOTSTRAP_PROJECT_ID>
+stackit project delete --project-id <BOOTSTRAP_PROJECT_ID>
 ```
 
 ---
