@@ -29,7 +29,7 @@ resource "stackit_authorization_organization_role_assignment" "sa_owner" {
 
 resource "vault_kv_secret_v2" "service_account_key_automation" {
   mount               = stackit_secretsmanager_instance.this.instance_id
-  name                = "service_account_key_${stackit_service_account.automation.name}"
+  name                = "service_account_key_${replace(var.naming_pattern, "-", "_")}"
   cas                 = 1
   delete_all_versions = true
   data_json           = stackit_service_account_key.automation.json

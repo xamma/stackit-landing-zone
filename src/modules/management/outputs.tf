@@ -28,3 +28,8 @@ output "secretsmanager_password" {
   value       = stackit_secretsmanager_user.default.password
   sensitive   = true
 }
+
+output "bucket_name_tfstate" {
+  description = "The name of the tfstate object storage bucket."
+  value       = stackit_objectstorage_bucket.tfstate.name
+}

@@ -31,6 +31,10 @@ labels = {
 #   "auditor@example.com"
 # ]
 
+# observability = {
+#   plan_name = "Observability-Starter-EU01"
+# }
+
 ##################
 ## CONNECTIVITY ##
 ##################

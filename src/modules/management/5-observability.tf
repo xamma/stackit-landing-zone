@@ -28,7 +28,7 @@ resource "vault_kv_secret_v2" "observability" {
   count = var.observability != null ? 1 : 0
 
   mount               = stackit_secretsmanager_instance.this.instance_id
-  name                = "service_account_key_${stackit_service_account.automation.name}"
+  name                = "observability_credentials_${replace(var.naming_pattern, "-", "_")}"
   cas                 = 1
   delete_all_versions = true
   data_json = jsonencode(

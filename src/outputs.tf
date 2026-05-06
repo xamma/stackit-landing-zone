@@ -17,6 +17,11 @@ output "management_project_id" {
   value       = module.management.project_id
 }
 
+output "management_bucket_name_tfstate" {
+  description = "The name of the Management tfstate object storage bucket."
+  value       = module.management.bucket_name_tfstate
+}
+
 output "connectivity_network_area_id" {
   description = "The network area ID created by the regional module."
   value       = try(module.connectivity[0].network_area_id, null)

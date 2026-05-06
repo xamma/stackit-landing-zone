@@ -2,16 +2,12 @@
 
 This guide walks you through deploying the STACKIT Landing Zone from scratch.
 
----
-
 ## Prerequisites
 
 - A **STACKIT organization** with your user account registered
 - **Owner permissions** on the STACKIT organization
 - **STACKIT CLI** installed ([Installation guide](https://github.com/stackitcloud/stackit-cli/blob/main/INSTALLATION.md))
 - **OpenTofu** (>= 1.10) or **Terraform** (>= 1.10) installed
-
----
 
 ## Deployment Flavours
 
@@ -23,7 +19,7 @@ Three ready-to-use configurations are provided in `src/config/`:
 | **Hub-Spoke** | `hub-and-spoke.tfvars` | Adds a connectivity hub with a network area and DNS zones. Corporate landing zones connect via the network area. |
 | **Hub-Spoke + Firewall** | `hub-and-spoke-firewall.tfvars` | Full hub-spoke topology with a pfSense firewall appliance on the WAN/LAN boundary. |
 
-Choose the flavour that matches your requirements and adjust the corresponding `.tfvars` file before deployment. At a minimum, update `owner_email`, `organization_id`, `company_name`, and `company_code`.
+Choose the flavour that matches your requirements and adjust the corresponding `.tfvars` file before deployment (step 7). At a minimum, update `owner_email`, `organization_id`, `company_name`, and `company_code`.
 
 ---
 
@@ -83,9 +79,11 @@ Create a service account key and configure it for the STACKIT Terraform provider
 mkdir -p ~/.stackit
 stackit service-account key create --email bootstrap-sa-ap82bsi8@sa.stackit.cloud --project-id <PROJECT_ID> -y --verbosity error > ~/.stackit/credentials.json
 
-# Hint: ~ doesnt work for referencing the home folder; if using mise you can ommit this
 export STACKIT_SERVICE_ACCOUNT_KEY_PATH=/home/<USER>/.stackit/credentials.json
 ```
+
+> [!NOTE]
+> `~` does not work for referencing the home folder. If using mise, you can omit the `STACKIT_SERVICE_ACCOUNT_KEY_PATH` export.
 
 Refer to the [STACKIT Terraform provider documentation](https://registry.terraform.io/providers/stackitcloud/stackit/latest/docs) for all supported authentication methods.
 
@@ -108,8 +106,6 @@ Update the values to match your organization. Required variables:
 
 ### 8. Initialize OpenTofu/Terraform
 
-Comment out or remove the `backend "s3"` block in `backend.tf` for the initial run (state will be stored locally):
-
 ```bash
 tofu init
 ```
@@ -120,24 +116,25 @@ tofu init
 tofu apply
 ```
 
-Hint: if you didnt suffix your tfvars file with .auto.tfvars run `tofu apply -var-file ./config/<flavor>.tfvars` 
-
 Review the plan and confirm with `yes`.
+
+> [!NOTE]
+> If you did not copy your tfvars file with the `.auto.tfvars` suffix, pass it explicitly: `tofu apply -var-file ./config/<flavor>.tfvars`
 
 ---
 
 ## Migrating State to the Created Backend
 
-After the first successful apply, the management module has created an S3 bucket for remote state and a service account for ongoing automation. Migrate to this backend to enable team collaboration and state locking.
+After the first successful apply, the management module has created an S3 bucket for remote state and a service account for ongoing automation. Migrate to this backend to enable team collaboration.
 
 ### 10. Enable the S3 backend
 
-Uncomment the `backend "s3"` block in `backend.tf` and update the `bucket` name to match the Terraform output (format: `<company_code>-pltfm-mgmt-prod-tfstate`). Configure the bucket credentials from the Secrets Manager in the management project:
+Uncomment the `backend "s3"` block in `backend.tf` and update the `bucket` name to match the Terraform output `management_bucket_name_tfstate`:
 
 ```hcl
 terraform {
   backend "s3" {
-    bucket = "<company_code>-pltfm-mgmt-prod-tfstate"
+    bucket = "<MANAGEMENT_BUCKET_NAME_TFSTATE>"
     endpoints = {
       s3 = "https://object.storage.eu01.onstackit.cloud"
     }
@@ -150,13 +147,17 @@ terraform {
   }
 }
 ```
+In the STACKIT Portal, navigate to the management project → Secrets Manager → Secrets. Open the secret prefixed with `object_storage_credentials_` and copy the `ACCESS_KEY` and `SECRET_ACCESS_KEY` values.
 
-Set the S3 backend credentials (retrieved from the Secrets Manager instance in the management project):
+Set the S3 backend credentials:
 
 ```bash
-export AWS_ACCESS_KEY_ID=<BUCKET_ACCESS_KEY>
-export AWS_SECRET_ACCESS_KEY=<BUCKET_SECRET_KEY>
+export AWS_ACCESS_KEY_ID=<ACCESS_KEY>
+export AWS_SECRET_ACCESS_KEY=<SECRET_ACCESS_KEY>
 ```
+
+> [!IMPORTANT]
+> These values need to be persisted across terminal sessions.
 
 ### 11. Migrate state
 
@@ -168,24 +169,30 @@ Confirm the migration when prompted.
 
 ### 12. Switch to the management service account
 
-Replace the bootstrap credentials with the service account created by the management module. The service account email is available in the Terraform outputs. Retrieve its credentials from the Secrets Manager instance in the management project.
+Replace the bootstrap credentials with the service account created by the management module.
 
-Update the environment variables:
+In the STACKIT Portal, navigate to the management project → Secrets Manager → Secrets. Open the secret prefixed with `service_account_key_` and copy its value into `~/.stackit/credentials.json`:
 
 ```bash
-export STACKIT_SERVICE_ACCOUNT_EMAIL=<MANAGEMENT_SA_EMAIL>
-export STACKIT_SERVICE_ACCOUNT_TOKEN=<MANAGEMENT_SA_TOKEN>
+cat > ~/.stackit/credentials.json << 'EOF'
+<PASTE_SECRET_VALUE_HERE>
+EOF
 ```
+
+The `STACKIT_SERVICE_ACCOUNT_KEY_PATH` environment variable already points to this file from step 6, so no further changes are needed.
 
 ### 13. Verify the migration
 
 Run a plan to confirm no changes are detected:
 
 ```bash
-tofu plan -var-file=config/<flavour>.tfvars
+tofu plan
 ```
 
 The output should show `No changes. Your infrastructure matches the configuration.`
+
+> [!NOTE]
+> If you did not copy your tfvars file with the `.auto.tfvars` suffix, pass it explicitly: `tofu plan -var-file ./config/<flavor>.tfvars`
 
 ---
 
@@ -193,7 +200,7 @@ The output should show `No changes. Your infrastructure matches the configuratio
 
 ### 14. Delete the bootstrap project
 
-The temporary bootstrap project is no longer needed:
+The temporary bootstrap project with the service account is no longer needed:
 
 ```bash
 stackit project delete <BOOTSTRAP_PROJECT_ID>

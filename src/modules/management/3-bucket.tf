@@ -33,7 +33,7 @@ resource "stackit_objectstorage_credential" "this" {
 
 resource "vault_kv_secret_v2" "object_storage_credentials" {
   mount               = stackit_secretsmanager_instance.this.instance_id
-  name                = "service_account_key_${stackit_service_account.automation.name}"
+  name                = "object_storage_credentials_${replace(var.naming_pattern, "-", "_")}"
   cas                 = 1
   delete_all_versions = true
   data_json = jsonencode(
