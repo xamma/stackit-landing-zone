@@ -79,22 +79,22 @@ variable "rm_folders" {
   description = "Map of resource manager folders to create under the root organization."
   default = {
     platform = {
-      name          = "Platform 3"
+      name          = "Platform"
       owner_emails  = []
       reader_emails = []
     }
     landing_zones_corporate = {
-      name          = "Landing Zones - Corporate 3"
+      name          = "Landing Zones - Corporate"
       owner_emails  = []
       reader_emails = []
     }
     landing_zones_public = {
-      name          = "Landing Zones - Public 3"
+      name          = "Landing Zones - Public"
       owner_emails  = []
       reader_emails = []
     }
     sandboxes = {
-      name          = "Sandboxes 3"
+      name          = "Sandboxes"
       owner_emails  = []
       reader_emails = []
     }
