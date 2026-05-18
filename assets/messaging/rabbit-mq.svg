@@ -1,0 +1,30 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="rabbit-mq">
+<path id="background" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="black"/>
+<path id="surface" opacity="0.25" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="url(#paint0_linear_7778_5592)"/>
+<path id="symbol-stroke" fill-rule="evenodd" clip-rule="evenodd" d="M50 21H56V51H16V45H10V15H50V21ZM50 45H17.5V49.5H54.5V22.5H50V45ZM17.5 43.5H48.5V22.5H17.5V43.5ZM11.5 43.5H16V21H48.5V16.5H11.5V43.5Z" fill="white"/>
+<g id="Group 74380">
+<path id="Rectangle 689" d="M22 27H62V57H22V27Z" fill="url(#paint1_linear_7778_5592)"/>
+<path id="Rectangle 689_2" d="M22 57H62L42 37L22 57Z" fill="url(#paint2_linear_7778_5592)"/>
+<path id="Rectangle 689_3" d="M22 27H62L42 47L22 27Z" fill="url(#paint3_linear_7778_5592)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_7778_5592" x1="6.5" y1="3.5" x2="64" y2="67" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9CB99"/>
+<stop offset="1" stop-color="#EF7C00"/>
+</linearGradient>
+<linearGradient id="paint1_linear_7778_5592" x1="9.72845" y1="38.2104" x2="78.7997" y2="39.4974" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9CB99"/>
+<stop offset="1" stop-color="#EF7C00"/>
+</linearGradient>
+<linearGradient id="paint2_linear_7778_5592" x1="12.5" y1="22" x2="45.5" y2="57" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9CB99"/>
+<stop offset="1" stop-color="#EF7C00"/>
+</linearGradient>
+<linearGradient id="paint3_linear_7778_5592" x1="36.7563" y1="31.1316" x2="66.3583" y2="61.1626" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9CB99"/>
+<stop offset="1" stop-color="#EF7C00"/>
+</linearGradient>
+</defs>
+</svg>

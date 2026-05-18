@@ -1,0 +1,18 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="archive">
+<path id="background" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="black"/>
+<path id="surface" opacity="0.25" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="url(#paint0_linear_7778_5575)"/>
+<path id="symbol-stroke" fill-rule="evenodd" clip-rule="evenodd" d="M51.2568 11.0068C53.8989 11.1405 56 13.3247 56 16V41H59V53C59 57.2801 55.6389 60.7748 51.4121 60.9893L51 61H21C16.7199 61 13.2252 57.6389 13.0107 53.4121L13 53V41H20V16C20 13.3247 22.1011 11.1405 24.7432 11.0068L25 11H51L51.2568 11.0068ZM14.5 53C14.5 56.5899 17.4101 59.5 21 59.5H51C54.5899 59.5 57.5 56.5899 57.5 53V42.5H14.5V53ZM25 12.5C23.067 12.5 21.5 14.067 21.5 16V41H24V16C24 14.6366 24.5468 13.4019 25.4316 12.5H25ZM29 12.5C27.067 12.5 25.5 14.067 25.5 16V41H50.5V16C50.5 14.067 48.933 12.5 47 12.5H29ZM50.5684 12.5C51.4532 13.4019 52 14.6366 52 16V41H54.5V16C54.5 14.067 52.933 12.5 51 12.5H50.5684Z" fill="white"/>
+<path id="Rectangle 739" opacity="0.9" d="M16.0001 16C16.0001 13.2386 18.2387 11 21.0001 11H43.0001C45.7615 11 48.0001 13.2386 48.0001 16L48 41H16L16.0001 16Z" fill="url(#paint1_linear_7778_5575)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_7778_5575" x1="6.5" y1="3.5" x2="64" y2="67" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F1A5A5"/>
+<stop offset="1" stop-color="#DC1F1F"/>
+</linearGradient>
+<linearGradient id="paint1_linear_7778_5575" x1="19" y1="16" x2="29.3891" y2="35.3983" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F1A5A5"/>
+<stop offset="1" stop-color="#DC1F1F"/>
+</linearGradient>
+</defs>
+</svg>

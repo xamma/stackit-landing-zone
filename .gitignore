@@ -37,3 +37,9 @@ override.tf.json
 terraform.rc
 
 .terraform.lock.hcl
+
+# Local AI/model-serving credentials and generated semantic cache
+openai.token
+.env
+.env.local
+.cache/

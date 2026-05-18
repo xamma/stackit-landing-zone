@@ -1,0 +1,8 @@
+{
+  "securityLevel": "loose",
+  "maxTextSize": 200000000,
+  "maxEdges": 20000,
+  "flowchart": {
+    "htmlLabels": true
+  }
+}

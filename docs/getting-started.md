@@ -24,6 +24,20 @@ Three ready-to-use configurations are provided in `src/config/`:
 
 Choose the flavour that matches your requirements and adjust the corresponding `.tfvars` file before deployment (step 7). At a minimum, update `owner_email`, `organization_id`, `company_name`, and `company_code`.
 
+### Architecture previews
+
+#### Standalone
+
+![Standalone architecture](diagrams/standalone-architecture.svg)
+
+#### Hub-Spoke
+
+![Hub-Spoke architecture](diagrams/hub-and-spoke-architecture.svg)
+
+#### Hub-Spoke + Firewall
+
+![Hub-Spoke + Firewall architecture](diagrams/hub-and-spoke-firewall-architecture.svg)
+
 > [!NOTE]
 > This single-root-module approach works well for smaller environments. At larger scale — typically beyond 10 landing zones — you may encounter STACKIT API rate limits during applies and slower plan/refresh cycles due to a growing state file. Tools like [Terragrunt](https://terragrunt.gruntwork.io/), [Terramate](https://terramate.io/), or [Spacelift](https://spacelift.io/) can help by splitting landing zones into isolated state files and orchestrating root module calls with proper concurrency controls. If you are planning a larger enterprise deployment, reach out to [STACKIT](https://stackit.de) or a partner offering a verified landing zone solution via the [STACKIT Marketplace](https://marketplace.stackit.cloud).
 

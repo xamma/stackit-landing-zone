@@ -1,0 +1,22 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ssh">
+<path id="background" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="black"/>
+<path id="surface" opacity="0.25" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="url(#paint0_linear_7778_5594)"/>
+<g id="symbol-stroke">
+<path d="M59 48L58.9932 48.2568C58.8638 50.8138 56.8138 52.8638 54.2568 52.9932L54 53H18L17.7432 52.9932C15.1862 52.8638 13.1362 50.8138 13.0068 48.2568L13 48V28H14.5V48C14.5 49.933 16.067 51.5 18 51.5H54C55.933 51.5 57.5 49.933 57.5 48V28H59V48Z" fill="white"/>
+<path d="M47 45.75H37V44.25H47V45.75Z" fill="white"/>
+<path d="M35.8467 39.1289L25.2979 43.6885L24.7021 42.3115L32.1533 39.0908L24.6885 35.6826L25.3115 34.3174L35.8467 39.1289Z" fill="white"/>
+</g>
+<path id="Rectangle 773" d="M13 24C13 21.2386 15.2386 19 18 19H54C56.7614 19 59 21.2386 59 24V28H13V24Z" fill="url(#paint1_linear_7778_5594)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_7778_5594" x1="6.5" y1="3.5" x2="64" y2="67" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FDDC75"/>
+<stop offset="1" stop-color="#DBA71F"/>
+</linearGradient>
+<linearGradient id="paint1_linear_7778_5594" x1="63.4292" y1="11.2835" x2="15.0114" y2="32.5396" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FDDC75"/>
+<stop offset="1" stop-color="#DBA71F"/>
+</linearGradient>
+</defs>
+</svg>

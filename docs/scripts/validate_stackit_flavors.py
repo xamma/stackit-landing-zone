@@ -14,7 +14,7 @@ from urllib.error import URLError, HTTPError
 from urllib.request import Request, urlopen
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_API_URL = "https://pim.api.stackit.cloud/v2/skus"
 API_TIMEOUT_SECONDS = 45
 API_RETRIES = 3
@@ -180,9 +180,11 @@ def collect_used_flavors(root: Path) -> tuple[list[tuple[str, str]], list[tuple[
     used_git: list[tuple[str, str]] = []
 
     assignment_server_re = re.compile(r"\b(?:machine_type|firewall_flavor)\s*=\s*\"([^\"]+)\"")
+    assignment_firewall_flavor_re = re.compile(r"\bflavor\s*=\s*\"([^\"]+)\"")
     assignment_git_re = re.compile(r"\bgit_flavor\s*=\s*\"([^\"]+)\"")
     block_start_re = re.compile(r'^\s*variable\s+"(firewall_flavor|git_flavor)"\s*{\s*$')
     default_re = re.compile(r'\bdefault\s*=\s*"([^\"]+)"')
+    firewall_block_depth = 0
 
     for path in iter_tf_files(root):
         rel_path = path.relative_to(root)
@@ -191,13 +193,27 @@ def collect_used_flavors(root: Path) -> tuple[list[tuple[str, str]], list[tuple[
         with path.open("r", encoding="utf-8") as handle:
             for line_number, line in enumerate(handle, start=1):
                 code = line.split("#", 1)[0].split("//", 1)[0]
+                stripped = code.strip()
 
                 start_match = block_start_re.match(code)
                 if start_match:
                     in_var_block = start_match.group(1)
 
+                # Track tfvars/module blocks that define firewall flavor as nested key: firewall { flavor = "c1.2" }
+                if re.match(r"^\s*firewall\s*=\s*\{", code):
+                    firewall_block_depth = 1
+                elif firewall_block_depth > 0:
+                    firewall_block_depth += code.count("{")
+                    firewall_block_depth -= code.count("}")
+                    if firewall_block_depth < 0:
+                        firewall_block_depth = 0
+
                 for match in assignment_server_re.finditer(code):
                     used_server.append((match.group(1), f"{rel_path}:{line_number}"))
+
+                if firewall_block_depth > 0:
+                    for match in assignment_firewall_flavor_re.finditer(code):
+                        used_server.append((match.group(1), f"{rel_path}:{line_number}"))
 
                 for match in assignment_git_re.finditer(code):
                     used_git.append((match.group(1), f"{rel_path}:{line_number}"))

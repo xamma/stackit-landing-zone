@@ -1,0 +1,18 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="placeholder">
+<path id="background" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="black"/>
+<path id="surface" opacity="0.25" d="M72 18C72 8.05888 63.9411 0 54 0H18C8.05888 0 0 8.05888 0 18V54C0 63.9411 8.05888 72 18 72H54C63.9411 72 72 63.9411 72 54V18Z" fill="url(#paint0_linear_10285_1998)"/>
+<path id="symbol-stroke" d="M58.4023 23.0674V48.9326L36.002 61.8662L13.6016 48.9326V23.0674L36.002 10.1338L58.4023 23.0674ZM15.1016 23.9326V48.0664L36.002 60.1338L56.9023 48.0664V23.9326L36.002 11.8652L15.1016 23.9326Z" fill="white"/>
+<path id="Polygon" d="M36.0011 23.5L46.8264 29.75V42.25L36.0011 48.5L25.1758 42.25V29.75L36.0011 23.5Z" fill="url(#paint1_linear_10285_1998)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_10285_1998" x1="5.36359" y1="0" x2="72" y2="66.6364" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D7DFE6"/>
+<stop offset="1" stop-color="#8B9298"/>
+</linearGradient>
+<linearGradient id="paint1_linear_10285_1998" x1="46.2431" y1="24.7153" x2="26.2778" y2="46.7639" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D7DFE6"/>
+<stop offset="1" stop-color="#8B9298"/>
+</linearGradient>
+</defs>
+</svg>

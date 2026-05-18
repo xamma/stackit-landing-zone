@@ -1,0 +1,518 @@
+{
+  "0c820ecea360d2aaaa07a7983393b1ca75a04539d2a75a1337e5df07f6aa915b": {
+    "confidence": 0.9,
+    "label": "Route",
+    "relation": "routes",
+    "semantic_class": "sem_network"
+  },
+  "0ee154e9371c6fd7bb9fbe51eacdc91f1e0ccaa018ecfe840c316ab3e39eb378": {
+    "groups": [
+      {
+        "confidence": 0.8,
+        "members": [
+          "Authorization Organization Role Assignment",
+          "Role Assignments",
+          "Service Account",
+          "Service Account Key"
+        ],
+        "title": "Identity and Access Management"
+      },
+      {
+        "confidence": 0.7,
+        "members": [
+          "Object Storage",
+          "Object Storage Credentials",
+          "Object Storage Credentials Group"
+        ],
+        "title": "Storage and Hosting"
+      },
+      {
+        "confidence": 0.9,
+        "members": [
+          "Secrets Manager",
+          "Secrets Manager User",
+          "Vault Kv Secret V2"
+        ],
+        "title": "Security and Secrets Management"
+      },
+      {
+        "confidence": 0.6,
+        "members": [
+          "Observability Credential",
+          "Observability Instance"
+        ],
+        "title": "Observability and Monitoring"
+      }
+    ]
+  },
+  "120eb42c7f14209c016ac023d265bd3f596f921f105001e6ad0b8e226b29f8d7": {
+    "confidence": 1.0,
+    "label": "Project",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "1423f963cf9fbec2af6b17ac567f4a6bfeb58c069b53385821d1ff8b7a302132": {
+    "confidence": 0.8,
+    "label": "Folders",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "165f79852e1ceeb41f05a280b5d6f062316341081ff35e415c00bbe2c44d8ab1": {
+    "confidence": 0.9,
+    "label": "Route",
+    "relation": "routes",
+    "semantic_class": "sem_network"
+  },
+  "1913b3728ee76201769d8c8418e6ec71b7fbd9634feeb27ed7c154b7e8d5714e": {
+    "confidence": 0.8,
+    "label": "Service Account",
+    "relation": "auth",
+    "semantic_class": "sem_identity"
+  },
+  "1d5e7d41e44ea153f553451b0d8ce2be5a031292d274be45dab3336b37694efd": {
+    "confidence": 1.0,
+    "label": "Project",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "1faa68afe729cf322bedb744c4c88cccb4784f0dab461593052d829009d10259": {
+    "confidence": 0.8,
+    "label": "Network Interface",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "20ead2ac1a2335f3b4208d39d5dbce8b36257714c2fe87b2b521cf7f163671c1": {
+    "confidence": 0.8,
+    "label": "Object Storage Credentials Group",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "21777cc28069732f41c1ea1febc354e68ec2fa4e8456b3523fc26dca45bd7dd6": {
+    "confidence": 0.9,
+    "label": "Network",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "289ad963934ed37ab36f4193c3bf77d9c55ac90370fd1ecb287cf467eb804990": {
+    "confidence": 0.8,
+    "label": "Folders",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "2d72b4e700650c23df87570af2b87a1b5572a2176fb6b692d42cf8befcbdbcb8": {
+    "confidence": 0.8,
+    "label": "Object Storage",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "2fabb9d82450c96c8a02baeab384e36ba3018106f8079e287a4141a40a4a80e2": {
+    "confidence": 1.0,
+    "label": "Vault Kv Secret V2",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "3315ecd8f27da86d84cc7a20727a5c658bfd5810bf5575560c8572b107c78fed": {
+    "confidence": 0.9,
+    "label": "Kubernetes Cluster",
+    "relation": "hosts",
+    "semantic_class": "sem_kubernetes"
+  },
+  "40c3f371cf6fcfe7d25629469a744e3521184536187430084a321dd820ba5577": {
+    "confidence": 0.8,
+    "label": "Custom Roles",
+    "relation": "settings",
+    "semantic_class": "sem_identity"
+  },
+  "41e6a24e5b0288647589c87bac9321fe10ccc919499a6285c76568f85eaebe34": {
+    "confidence": 0.9,
+    "label": "Authorization Folder Role Assignment",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "484a55d76cb011a714605ffbd01aa3bcf8f20e6e6643788067d52f8572822485": {
+    "confidence": 0.8,
+    "label": "Authorization Organization Role Assignment",
+    "relation": "settings",
+    "semantic_class": "sem_identity"
+  },
+  "48c7eba199431703511f8d05483a68c49286579c48a7bc4b7f092767868ffe6d": {
+    "confidence": 0.8,
+    "label": "Service Account Key",
+    "relation": "auth",
+    "semantic_class": "sem_identity"
+  },
+  "4a22c2487f48ef35c1889bf09535762b897475cc3ad9b8ad6bb10c16e9dc4cab": {
+    "confidence": 1.0,
+    "label": "Vault Kv Secret V2",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "52660bf8bbc208c0cd60f4e5079fbd7babab536b89feb382083612431892ed71": {
+    "groups": [
+      {
+        "confidence": 0.8,
+        "members": [
+          "Custom Roles",
+          "Role Assignments",
+          "Service Account",
+          "Service Account Key"
+        ],
+        "title": "Identity and Access"
+      },
+      {
+        "confidence": 0.9,
+        "members": [
+          "Key Rotation",
+          "Secrets Manager",
+          "Secrets Manager User",
+          "Vault Kv Secret V2",
+          "Object Storage Credentials"
+        ],
+        "title": "Secrets Management"
+      },
+      {
+        "confidence": 0.7,
+        "members": [
+          "Kubernetes Cluster",
+          "Network",
+          "Object Storage",
+          "Object Storage Credentials Group"
+        ],
+        "title": "Infrastructure"
+      }
+    ]
+  },
+  "552fb9967f85aeccad859ad55fabc2f0b8a5c3783490b0a71b6ce96db5f7dc8a": {
+    "confidence": 0.8,
+    "label": "Object Storage",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "5630b825aaf2dd7da710036d6e952e9bfe96392535dd2aaff9e876c8ab504de9": {
+    "confidence": 0.8,
+    "label": "Service Account",
+    "relation": "auth",
+    "semantic_class": "sem_identity"
+  },
+  "59604c8429abd037dd14d8d6f6b37adb7037a0d3f5bd7e7d5211b0e79903d790": {
+    "groups": [
+      {
+        "confidence": 0.7,
+        "members": [
+          "Firewall Appliance",
+          "Firewall Image",
+          "Firewall Volume",
+          "pfsense_image_file"
+        ],
+        "title": "Compute and Storage Resources"
+      },
+      {
+        "confidence": 0.9,
+        "members": [
+          "Network",
+          "Network Interface",
+          "Public IP",
+          "Route"
+        ],
+        "title": "Network Infrastructure"
+      },
+      {
+        "confidence": 0.6,
+        "members": [
+          "Project",
+          "Role Assignments"
+        ],
+        "title": "Foundation and Identity"
+      }
+    ]
+  },
+  "5f3a12c9f0310c0449271ffa9949e0dd815c5d8e89121eed6babad77509ba88e": {
+    "confidence": 0.8,
+    "label": "Role Assignments",
+    "relation": "settings",
+    "semantic_class": "sem_identity"
+  },
+  "6615f0f2050c89d8af83ac5049e8c99e51e53cb9a95061d24593d394dbbcd6c2": {
+    "confidence": 0.9,
+    "label": "Observability Instance",
+    "relation": "observes",
+    "semantic_class": "sem_observability"
+  },
+  "670d55a34451f86593d9d011966cd13934d64c5b03746bc98dc9ea8fa6994cf7": {
+    "confidence": 0.9,
+    "label": "Network",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "6ada12911f15421e789a85307751186b9c8c74e6f599361015dbcb675b0307a1": {
+    "confidence": 1.0,
+    "label": "Secrets Manager User",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "70b3cf609086c1f7126bcd05d75bf3168d715d331d211598015e0e2c5d215b80": {
+    "confidence": 0.8,
+    "label": "Object Storage Credentials Group",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "74076486ded5b30076329bfa101d2d69c2257ddec17f79b22d63a342f39ca0f2": {
+    "confidence": 0.8,
+    "label": "Folders",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "75489973a1d3ce36ac861b445ff37b2a26d80670dc88b0bb7191f0b9c81353d2": {
+    "confidence": 0.9,
+    "label": "Object Storage Credentials",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "754ef3105c761140b69ee02eeb78326929f113b47773a5a29847861890f43b02": {
+    "confidence": 0.8,
+    "label": "Observability Credential",
+    "relation": "observes",
+    "semantic_class": "sem_observability"
+  },
+  "764d2619e097c689e5763975ef926b8f944ec984a93ee721b4727a4aea73e9ed": {
+    "confidence": 0.8,
+    "label": "Authorization Organization Role Assignment",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "7888b7691527021996b5364c58260aabb7623c289beb9d6efe88cf4f0b77783b": {
+    "confidence": 0.9,
+    "label": "Service Account Key",
+    "relation": "auth",
+    "semantic_class": "sem_identity"
+  },
+  "7e086fae8539f4bce9344af24b1838a55c21e79542a1a13ba20ade6a2b24278b": {
+    "confidence": 0.8,
+    "label": "Public IP",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "83e6949d0dcd087945531987b485551d23765622d55cb3058d4494aea9452352": {
+    "confidence": 0.8,
+    "label": "Folders",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "86ecaa8d3df5564d1c12ad22e2f50fa3d954705c1c30e19d6adde4ec2e008041": {
+    "confidence": 0.8,
+    "label": "Object Storage Credentials",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "8ac6a17c0bec50b33ea008ae4b31d6c3d5d6f24e05da860a8ca38da00a13e921": {
+    "confidence": 0.9,
+    "label": "Secrets Manager User",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "8b2f9e94144e5260708794c0c9b45ca1ab0e3ca1e38a2c8cecf832277cf91983": {
+    "confidence": 0.8,
+    "label": "pfsense_image_file",
+    "relation": "supports",
+    "semantic_class": "sem_compute"
+  },
+  "8f3102993d2d897e4288c37e87e8c46c7a97efcb5216762c7a149644b187cebc": {
+    "confidence": 0.8,
+    "label": "Network",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "8fa8a2a997a2eafbe71fdabf9b804d74036754194ddc652caccfd16e2d38de22": {
+    "confidence": 0.8,
+    "label": "Object Storage",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "93a6d646bc8e4f88f6dcfee8d9eb49941add9e0da6ad2a2828505ea1a24b4d0c": {
+    "confidence": 0.8,
+    "label": "Time Rotating",
+    "relation": "supports",
+    "semantic_class": "sem_supporting"
+  },
+  "98b02fa03170208de752c99258c12d6fa10e69858a3e912ded5a5663e441b3d2": {
+    "confidence": 0.8,
+    "label": "Custom Role",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "9b62e38d8798801dca9d9fb08c3f87d4984049bd80368f6d37baad97300a6bcc": {
+    "confidence": 0.9,
+    "label": "Object Storage Credentials",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "a0a46fba71d6184453ed273181d99eb196d5e0450bc8ca8a6b9419adee461e88": {
+    "confidence": 0.8,
+    "label": "Firewall Image",
+    "relation": "supports",
+    "semantic_class": "sem_compute"
+  },
+  "a15a77c4a2cf567d4c6983c4fa13abb9f7fd82840ac8ff8a159e60ca21c98435": {
+    "confidence": 0.8,
+    "label": "Authorization Organization Role Assignment",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "a5883a610f2b9c139e089da3f51008f603256b2d12e23a5685607cd8ca929c8c": {
+    "confidence": 0.8,
+    "label": "Key Rotation",
+    "relation": "supports",
+    "semantic_class": "sem_secrets"
+  },
+  "aa1cd1f75b1ae4e022b8cd258aa3385c41d19499581459c4fce11c144bf25749": {
+    "groups": [
+      {
+        "confidence": 0.8,
+        "members": [
+          "Network Area",
+          "Network Area Region"
+        ],
+        "title": "Network Connectivity"
+      }
+    ]
+  },
+  "acff02e57d116be618de26da5d5210fdd7d884b77f23ba52bc6bc649bfd90dfc": {
+    "confidence": 1.0,
+    "label": "Network Area",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "b49eb70cb319469e0981bca6b8ffb6e1193b0df6b7318561f8b8544a3b06756d": {
+    "confidence": 0.8,
+    "label": "Git",
+    "relation": "enables",
+    "semantic_class": "sem_devops"
+  },
+  "bbdae49fc1f16707b57b81a8d6fe941f4404460e55cecf67bfe0822685e31061": {
+    "confidence": 1.0,
+    "label": "Project",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "c1929e8279d3934855653e376f100d047dcc85626e15eb2a48b9ed7493b04a57": {
+    "confidence": 0.8,
+    "label": "Firewall Appliance",
+    "relation": "secures",
+    "semantic_class": "sem_compute"
+  },
+  "c219f9506fb994ea769c45bb3e79a69119153b1e35073328644443dd05cc3742": {
+    "groups": [
+      {
+        "confidence": 0.8,
+        "members": [
+          "Authorization Folder Role Assignment",
+          "Authorization Organization Role Assignment",
+          "Custom Role"
+        ],
+        "title": "Access Settings"
+      }
+    ]
+  },
+  "cae9ea4dc2f1c15806bbc6e43ba7c3c745be7be1b01164c9a2d79bc8713758b2": {
+    "confidence": 0.9,
+    "label": "Secrets Manager",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "cdbaf9c8c8d10e4e1a4e2a1affd8d8a161e5db56c4971eba32980c135f127401": {
+    "confidence": 0.8,
+    "label": "Role Assignments",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "cf4c90a8fd075f7dc29c027a53f6e88990407814a03654a3246078872feeffee": {
+    "confidence": 0.9,
+    "label": "Secrets Manager",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "db17a935fb3f3c896e3765fbf2b054668fe403743c630d9e80584006bab72d47": {
+    "confidence": 0.8,
+    "label": "Role Assignments",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "db3060f520a519f4b164164a3e72d80ccbac75cd479526ac9d78147ee2387bef": {
+    "confidence": 0.8,
+    "label": "Role Assignments",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "ddf29be240bce7a4554e89e56778b187ecdacb4a158f7b71a8deea75723dde60": {
+    "confidence": 1.0,
+    "label": "Project",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "de6d7a15bfe4eb36a89b8765a602a53f925dd091b6bbe0f85a8c316973ebec68": {
+    "confidence": 0.8,
+    "label": "Firewall Volume",
+    "relation": "supports",
+    "semantic_class": "sem_storage"
+  },
+  "e0134f2622f2ae7ecc45796e1cff28ca2b8489e01f343c1135d5c5a229a72bb8": {
+    "confidence": 0.9,
+    "label": "Vault Kv Secret V2",
+    "relation": "secures",
+    "semantic_class": "sem_secrets"
+  },
+  "e039979e5e0b8ae347a175721a866ab58bb01d0239f192f1753b9738da2a598c": {
+    "confidence": 0.9,
+    "label": "Authorization Folder Role Assignment",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "e8dc107221780476a5273bf8365b403f96369709b576d6e4da2285e92f9cc478": {
+    "confidence": 0.8,
+    "label": "Object Storage Credentials",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "e9200b7d429e16bf3d42df6b51a2c7abf5ef01551ea088ce490f2db4836144d8": {
+    "confidence": 0.8,
+    "label": "Network Area Region",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "e9535f3453deeccc64da6bb9de5620cd1c9692bef22f3f00f0005fa20fe52616": {
+    "confidence": 1.0,
+    "label": "Project",
+    "relation": "organizes",
+    "semantic_class": "sem_foundation"
+  },
+  "f2e5f87eaeddae4e394e85fc38a4c05fd620bee6cf959fe6f6632ec692b628b6": {
+    "confidence": 0.8,
+    "label": "Object Storage",
+    "relation": "hosts",
+    "semantic_class": "sem_storage"
+  },
+  "f3a63c34f0f9d34a789d16e522487d2de5f95ed6e8ec2784928676afa280d042": {
+    "confidence": 0.8,
+    "label": "Role Assignments",
+    "relation": "settings",
+    "semantic_class": "sem_identity"
+  },
+  "fdc2aa1e82da941cbd65a3aaf8b5171786e178533071ded71eaac88594a30994": {
+    "confidence": 0.8,
+    "label": "Role Assignments",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  },
+  "fe0950d4666c12b85bd28a2d33d82501cb9b50d93d7551c0dfd3685f2f19c459": {
+    "confidence": 0.8,
+    "label": "Network Interface",
+    "relation": "connects",
+    "semantic_class": "sem_network"
+  },
+  "ff4f491549152473d0b8237587ccb891c0ec15a0bbc328996d43c2c5cc7a6ee2": {
+    "confidence": 0.8,
+    "label": "Authorization Folder Role Assignment",
+    "relation": "settings",
+    "semantic_class": "sem_access"
+  }
+}
