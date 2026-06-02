@@ -39,6 +39,12 @@ variable "rm_folders" {
   }
 }
 
+variable "rm_folder_parent_id" {
+  type        = string
+  description = "ID of the parent folder under which the company folder will be created. If not provided, the company folder will be created under the organization."
+  default     = null
+}
+
 variable "labels" {
   type        = map(string)
   description = "Additional labels to apply to all folders."
